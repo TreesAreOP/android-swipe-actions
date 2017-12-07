@@ -31,8 +31,9 @@ import de.taop.swipeaction.addEndListener
  */
 class DeleteAction(recyclerView: RecyclerView, @IdRes val snackBarParentID: Int, val allowUndo: Boolean = true,
                    @DrawableRes val iconID: Int = R.drawable.ic_delete_sweep_black_24dp,
-                   @ColorRes val colorID: Int = R.color.colorPendingDelete)
-    : SwipeAction(recyclerView, "pendingDelete", actionIconID = iconID, actionBGColorID = colorID) {
+                   @ColorRes val colorID: Int = R.color.colorPendingDelete,
+                   name: String = "pendingDelete")
+    : SwipeAction(recyclerView, name, actionIconID = iconID, actionBGColorID = colorID) {
 
     @StringRes
     private var deleteUndoID: Int = R.string.deleteUndo
@@ -180,7 +181,9 @@ class DeleteAction(recyclerView: RecyclerView, @IdRes val snackBarParentID: Int,
     /**
      * Undos all Pending items.
      */
-    private fun undoPendingItems() {
+    fun undoPendingItems(closeSnackBar: Boolean = false) {
+        if (closeSnackBar) snackBar.dismiss()
+
         for (i in pendingRemovalItems) {
             growItemToOriginalHeight(i.adapterPosition)
             adapter.notifyItemChanged(i.adapterPosition)
@@ -217,13 +220,15 @@ class DeleteAction(recyclerView: RecyclerView, @IdRes val snackBarParentID: Int,
             //if the view was sized down we first need to restore its original height
             //otherwise the height will stay at 0 even after recycling
             it.itemView?.layoutParams?.height = originalItemHeights[it]
-            finalRemoval(it.adapterPosition)
-            removed = true
+            if (it.adapterPosition != -1) {
+                finalRemoval(it.adapterPosition)
+                removed = true
+            }
         })
 
         pendingRemovalItems.clear()
 
-        if (removed) {
+        if (removed) { // invoke callback
             itemsDeletedCallback.invoke(
                     pendingRemovalItems.map { it.adapterPosition }.toIntArray()
             )

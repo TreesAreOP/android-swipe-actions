@@ -41,10 +41,10 @@ class ShareAction(recyclerView: RecyclerView) : de.taop.swipeaction.actions.Swip
         startShareIntent("Position $adapterPosition was shared!")
     }
 
-    private fun startShareIntent(urlKey: String) {
+    private fun startShareIntent(text: String) {
         val share = Intent(Intent.ACTION_SEND)
-        share.type = "text"
-        share.putExtra(Intent.EXTRA_TEXT, urlKey)
+        share.type = "text/plain"
+        share.putExtra(Intent.EXTRA_TEXT, text)
         // grants user read permission to the uri if needed
         startActivity(context, Intent.createChooser(share, "Share Action"), null)
     }

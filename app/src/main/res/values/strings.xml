@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">SwipeActionSample</string>
-    <string name="action_settings">Settings</string>
+
+    <array name="actions">
+        <item>Pending Delete</item>
+        <item>Instant Delete</item>
+        <item>Share</item>
+    </array>
+
 </resources>

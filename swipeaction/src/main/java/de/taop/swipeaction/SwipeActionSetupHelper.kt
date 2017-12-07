@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import de.taop.swipeaction.actions.SwipeAction
 
 /**
@@ -23,13 +24,9 @@ class SwipeActionSetupHelper {
             setUpRecyclerView(context, recyclerView, action, action)
         }
 
-        fun setUpRecyclerView(context: Context, recyclerView: RecyclerView, leftAction: SwipeAction, rightAction: SwipeAction) {
-            // we won't recycle the viewHolder because otherwise it could
-            // interfere with other actions since we change the size of the
-            // item.
-
+        fun setUpRecyclerView(context: Context, recyclerView: RecyclerView, leftAction: SwipeAction, rightAction: SwipeAction) : ItemTouchHelper{
             val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-                // we want to cache these and not allocate anything repeatedly in the onChildDraw method
+
                 internal lateinit var leftBackground: Drawable
                 internal lateinit var rightBackground: Drawable
                 lateinit var background: Drawable
@@ -57,6 +54,7 @@ class SwipeActionSetupHelper {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+
                     when (swipeDir) {
                         ItemTouchHelper.LEFT -> {
                             leftAction.performAction(viewHolder, ItemTouchHelper.LEFT)
@@ -120,11 +118,18 @@ class SwipeActionSetupHelper {
 
 
             }
-            val itemTouchHelper = ItemTouchHelper(callback)
+/*
 
+            //reset recyclerview if it has been set up before
+            recyclerView.invalidateItemDecorations()
+            recyclerView.clearOnChildAttachStateChangeListeners()
+            recyclerView.recycledViewPool.clear()
+*/
+
+            val itemTouchHelper = ItemTouchHelper(callback)
             itemTouchHelper.attachToRecyclerView(recyclerView)
 
-            //recyclerView.addItemDecoration(SwipeActionItemDecoration())
+            return itemTouchHelper
 
         }
     }
