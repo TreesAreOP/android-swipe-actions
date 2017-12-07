@@ -57,7 +57,6 @@ class SwipeActionSetupHelper {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                    val swipedPosition = viewHolder.adapterPosition
                     when (swipeDir) {
                         ItemTouchHelper.LEFT -> {
                             leftAction.performAction(viewHolder, ItemTouchHelper.LEFT)

@@ -48,7 +48,7 @@ class DummyAdapter(var items: ArrayList<DummyItem>, val itemClick: (DummyItem) -
         holder.bindView(items[position], position)
     }
 
-    override fun getItemCount(): Int = items.size ?: 0
+    override fun getItemCount(): Int = items.size
 
     class DummyViewHolder(val view: View, val itemClick: (DummyItem) -> Unit) : RecyclerView.ViewHolder(view) {
 

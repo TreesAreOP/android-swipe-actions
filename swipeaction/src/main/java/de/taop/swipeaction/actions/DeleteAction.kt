@@ -52,7 +52,7 @@ class DeleteAction(recyclerView: RecyclerView, @IdRes val snackBarParentID: Int,
      */
     var itemsDeletedCallback: (IntArray) -> Unit = {}
 
-    private lateinit var pendingRunnable: Runnable
+    private var pendingRunnable: Runnable
 
     init { // create the snackbar and pending runnable
         adapter as SwipeActionAdapter
