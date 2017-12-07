@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Android Swipe Action</string>
+
+    <plurals name="deletedItems">
+        <item quantity="one">deleted %1$d item</item>
+        <item quantity="other">deleted %1$d items</item>
+    </plurals>
+
+    <string name="deleteUndo">Undo</string>
+</resources>
