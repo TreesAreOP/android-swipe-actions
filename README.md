@@ -1,5 +1,5 @@
 # Android Swipe Actions
-This library helps to add swipe actions to a RecyclerView. A swipe action is an action which is performed when a swipe gesture is recognized on an adapter item. This Library implements a delete action with an undo option which makes it usable out of the box. </br></br>
+This library helps to add swipe actions to a RecyclerView. A swipe action is an action which is performed when a swipe gesture is recognized on an adapter item. The library contains an delete action with an undo option which makes it usable out of the box. </br></br>
 ![Imgur](https://i.imgur.com/qpULJkM.gif)</br></br>
 Note: Keep in mind that any action can be implemented! 
 
@@ -26,12 +26,12 @@ dependencies {
 ```
 
 # Usage
-To get started with the Library you should first implement your own Action or use the implemented delete Action.
-This Chapter will show the usage of the delete Action and the usual Workflow to assign the actions to the RecyclerView.
-Custom Actions will be described in the respective Chapter ([Custom Actions](#customAction)).
+To get started with the library you should first implement your own action or use the implemented delete action.
+This chapter will show the usage of the delete action and the usual workflow to assign the actions to the RecyclerView.
+Custom Actions will be described in the respective chapter ([Custom Actions](#customAction)).
 
 ## The Delete Action
-The Delete Action can be instantiated like this:
+The delete action can be instantiated like this:
 ```kotlin
 val pendingDeleteAction = DeleteAction(yourRecyclerView, R.id.container)
 val instantDeleteAction = DeleteAction(yourRecyclerView, R.id.container, // necessary
@@ -40,7 +40,7 @@ val instantDeleteAction = DeleteAction(yourRecyclerView, R.id.container, // nece
                 colorID = R.color.colorInstantDelete, // background color
                 name = "instantDelete") // name of the action --> use this for debugging! otherwise not used
 ```
-The pendingDeleteAction uses the Undo feature. Every other parameter besides the RecyclerView and SnackBar parent are optional.
+The pendingDeleteAction uses the undo feature. Every other parameter besides the RecyclerView and SnackBar parent are optional.
 To achieve an instant delete you could just set the undo parameter to false. If you'd like to customize the color and icon of the action you can also do so.
 
 Furthermore you can customize the text of the shown SnackBar and specify a callback when items are deleted. 
@@ -74,22 +74,21 @@ SwipeActionSetupHelper.setUpRecyclerView(this@MainActivity, list, pendingDeleteA
 You can use alternating Background colors if you want to. To set up the RecyclerView use the SwipeActionSetupHelper
 as shown above. 
 
-Your used adapter needs to implement the SwipeActionAdapter interface and provide the given Methods. 
+Your used adapter needs to implement the SwipeActionAdapter interface and provide the given methods. 
 An example implementation can be found in the sample app. It's important to note that the add and remove methods need to implement 
 the corresponding notify methods of the adapter.
 
 ## <a name=customAction></a>Custom Actions
-Android Swipe Actions allows you to implement your own Swipe Actions. Your not limited in what you can do! To get started you need to 
-extend the SwipeAction abstract class. See the sample for an example implementation. The performAction Method will be called when
+Android Swipe Actions allows you to implement your own SwipeActions. Your not limited in what you can do! To get started you need to 
+extend the SwipeAction abstract class. See the sample for an example implementation. The performAction method will be called when
 a swipe is registered. 
 ```kotlin
 abstract fun performAction(swipedHolder: RecyclerView.ViewHolder, swipeDirection: Int)
 ```
 Information of the swiped item can be retrieved from the ViewHolder. 
-Originally the adapter position was used for the method call. This was not accurate because items could change positions. To prevent index errors
+Originally the adapter position was used for the method call. This was not accurate because items could change their position in the adapter. To prevent index errors
 the ViewHolder of the given item is used. This provides the benefit of accurate indices since the adapterPosition of the ViewHolder is updated. 
-However there is also the possibility of the ViewHolder being recycled or other magic happening internally. To be save you could make sure
-that the adapterPosition makes sense (e.g. not -1 and not higher than the adapter size).
+However there is also the possibility of the ViewHolder being recycled or other magic happening internally. To be save you could check if the adapterPosition makes sense (e.g. not -1 and not higher than the adapter size).
 </br></br>
 And thats all there is to it! Have fun adding those actions to your RecyclerViews!
 
