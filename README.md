@@ -78,7 +78,7 @@ Your used adapter needs to implement the SwipeActionAdapter interface and provid
 An example implementation can be found in the sample app. It's important to note that the add and remove methods need to implement 
 the corresponding notify methods of the adapter.
 
-# <a name=customAction></a>Custom Actions
+## <a name=customAction></a>Custom Actions
 Android Swipe Actions allows you to implement your own Swipe Actions. Your not limited in what you can do! To get started you need to 
 extend the SwipeAction abstract class. See the sample for an example implementation. The performAction Method will be called when
 a swipe is registered. 
