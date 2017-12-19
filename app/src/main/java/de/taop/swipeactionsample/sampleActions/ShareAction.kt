@@ -16,10 +16,6 @@ import java.util.concurrent.TimeUnit
  */
 class ShareAction(recyclerView: RecyclerView) : de.taop.swipeaction.actions.SwipeAction(recyclerView, "share", R.drawable.ic_share_black_24dp, actionBGColorID = R.color.colorShare) {
 
-    companion object {
-        val REQUEST_WRITE_STORAGE = 1617
-    }
-
     private var lastSharedPosition: Int = -1
 
     override fun performAction(swipedHolder: RecyclerView.ViewHolder, swipeDirection: Int) {

@@ -105,6 +105,9 @@ class DeleteAction(recyclerView: RecyclerView, @IdRes val snackBarParentID: Int,
         } else {
             shrinkItemUntilGone(swipedHolder.adapterPosition) {
                 finalRemoval(swipedHolder.adapterPosition)
+                itemsDeletedCallback.invoke(
+                        intArrayOf(swipedHolder.adapterPosition)
+                )
                 growItemToOriginalHeight(swipedHolder.adapterPosition)
             }
         }
